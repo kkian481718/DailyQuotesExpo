@@ -30,11 +30,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "your-project-id"
-      }
-    },
     "plugins": [
       [
         "expo-build-properties",
@@ -45,6 +40,12 @@
           }
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "bf8b4c52-f502-43cb-a7b9-219c54773c80"
+      }
+    },
+    "owner": "miffy2022"
   }
 }
