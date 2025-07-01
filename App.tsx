@@ -9,9 +9,10 @@ import {
   TouchableOpacity,
   Alert,
   Animated,
+  Share,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Share from 'react-native-share';
+import * as Sharing from 'expo-sharing';
 
 interface Quote {
   id: number;
@@ -133,13 +134,20 @@ const App = () => {
 
   const shareQuote = async () => {
     try {
-      const options = {
-        title: '分享金句',
-        message: `${currentQuote.text}\n\n— ${currentQuote.author}`,
-      };
-      await Share.open(options);
+      const message = `${currentQuote.text}\n\n— ${currentQuote.author}`;
+      
+      // 檢查是否支援分享功能
+      if (await Sharing.isAvailableAsync()) {
+        await Share.share({
+          message: message,
+          title: '分享金句',
+        });
+      } else {
+        Alert.alert('提示', '此裝置不支援分享功能');
+      }
     } catch (error) {
       console.log('分享失敗:', error);
+      Alert.alert('錯誤', '分享失敗，請稍後再試');
     }
   };
 
